@@ -1,0 +1,23 @@
+﻿Release packaging validation (2026-10-22)
+
+Build: build-release, MinGW Makefiles, GCC 14.1.0 UCRT64 x86-64,
+Release flags -O3 -DNDEBUG. Original build/ remains Debug.
+No source or CMake changes were required.
+
+CTest: 12/12 passed; total 4.10 seconds.
+Packaged --demo --smoke-test: exit 0, 19/19 assets loaded.
+Packaged --seed 43 --smoke-test from unrelated TEMP working directory:
+exit 0, 19/19 assets loaded. Both ran with PATH restricted to Windows directories.
+
+Normal --demo launch: process remained alive and responsive after three seconds.
+Desktop screenshot capture failed (invalid screen handle in execution environment),
+so visual appearance was not manually verified. Hidden-window OpenGL smoke tests
+successfully exercised rendering and resizing. See build-release logs for details.
+
+PE imports inspected recursively using objdump -p. Bundled non-system dependencies:
+libstdc++-6.dll, libgcc_s_seh-1.dll, libwinpthread-1.dll.
+Remaining imports are Windows system / Universal CRT libraries.
+GLFW, ImGui and GLAD are static; GPU OpenGL drivers and WIC are OS dependencies.
+
+This is a single-host validation, not a clean-machine compatibility certification.
+Full assets/ tree retained, including source atlas and provenance README.
